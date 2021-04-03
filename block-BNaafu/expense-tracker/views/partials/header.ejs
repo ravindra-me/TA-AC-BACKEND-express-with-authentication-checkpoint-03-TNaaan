@@ -4,8 +4,12 @@
         <nav>
             <ul class="flex align-center">
                 <li><a href="/">Home</a></li>
-                <li><a href="/verifyEmail">signup</a></li>
-                <li><a href="/users/login">login</a></li>
+                <% if (user) { %>
+                    <li><a href="/users/logout">logout</a></li>
+                <% }else{ %>
+                    <li><a href="/verifyEmail">signup</a></li>
+                    <li><a href="/users/login">login</a></li>
+                <% } %>
             </ul>
         </nav>
     </div>
