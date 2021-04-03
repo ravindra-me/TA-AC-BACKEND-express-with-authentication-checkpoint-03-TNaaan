@@ -1,6 +1,5 @@
-const Article = require('../models/Article')
-let Users = require('../models/Users')
-let Comment = require('../models/Comment');
+let User = require('../models/User')
+
 module.exports = {
     loggedInUser:(req, res, next)=> {
         if(req.session && req.session.userId) {
@@ -16,7 +15,7 @@ module.exports = {
         var userId = req.session && req.session.userId;
         var userpassport = req.session && req.session.passport;
         if(userId) {
-            Users.findById(userId ,"email" ,  (err , user)=> {
+            User.findById(userId ,"name email" ,  (err , user)=> {
                 if(err) next(err)
                 if (!req.session.passport) {
                     req.user = user;
@@ -25,7 +24,7 @@ module.exports = {
                 next();
             })
         }else if(userpassport) {
-            Users.findById(userpassport.user ,  (err , user)=> {
+            User.findById(userpassport.user ,  (err , user)=> {
                 if(err) next(err)
                 res.locals.user = user;
                 next();

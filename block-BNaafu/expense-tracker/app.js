@@ -9,6 +9,7 @@ var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
 var passport = require('passport');
 var flash =require('connect-flash');
+var auth = require('./middleware/auth');
 
 require('dotenv').config();
 
@@ -59,7 +60,7 @@ app.use(
 );
 
 app.use(flash());
-
+app.use(auth.userInfo);
 app.use("/", indexRouter);
 app.use('/verifyEmail', verifyemailRouter);
 app.use("/users", usersRouter);

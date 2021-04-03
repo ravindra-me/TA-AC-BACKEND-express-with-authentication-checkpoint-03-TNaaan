@@ -34,16 +34,24 @@ router.get("/", (req, res) => {
   res.render("verifyEmail");
 });
 
+router.get("/:id/verifyOtp", (req, res, next) => {
+  EmailVerify.findById(req.params.id, (err, content) => {
+    if (err) return next(err);
+    res.render("verifyOtp", {
+      error: req.flash("error"),
+      data: content,
+      id: content._id,
+    });
+  });
+});
+
 router.post("/", (req, res, next) => {
-  req.body.otp = generateOTP();
+  let otp = generateOTP();
+  req.body.otp = String(otp);
   req.body.startDate = date();
   req.body.endDate = date() * 5 * 60 * 1000;
-  
-
   EmailVerify.create(req.body, (err, content) => {
-
     if (err) return next(err);
-    console.log("hi")
     var mailOptions = {
       from: "ravindrarajpoot9628172@gmail.com",
       to: `${req.body.email}`,
@@ -51,21 +59,46 @@ router.post("/", (req, res, next) => {
       html:
         "<h3>OTP for account verification is </h3>" +
         "<h1 style='font-weight:bold;'>" +
-        generateOTP() +
+        otp +
         "</h1>", // html body
     };
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         return console.log(error);
       }
-     res.render("verifyOtp", { email: req.email });
+      console.log(req.body.email);
+      res.redirect("/verifyEmail/" + content._id + "/verifyOtp");
     });
   });
 });
 
+router.post("/:id/verifyOtp", (req, res, next) => {
+  let otp = req.body.otp;
+  console.log("hi");
+  EmailVerify.findById(req.params.id, (err, content) => {
+    if (err) return next(err);
+    if (content.endDate >= date()) {
+      content.verifyOtp(otp, (err, verifyotp)=>{
+        if(err) return next(err)
+        console.log(verifyotp, "verify")
+        if(!verifyotp) {
+          req.flash("error", "opt is incorrect")
+          return res.redirect("/verifyEmail/" + content._id + "/verifyOtp");
+        }
+        res.redirect("/verifyEmail/" + content._id + "/signup");
+      })
+    } else {
+      req.flash("error", "your otp have expired");
+      return res.redirect("/verifyEmail/" + content._id + "/verifyOtp");
+    }
+  });
+});
 
-router.post("/verifyOtp", (req, res, next) => {
-  console.log(otp, "hi");
+router.get("/:id/signup", (req, res, next) => {
+  EmailVerify.findById(req.params.id, (err, content) => {
+    if (err) return next(err);
+    res.render("signup", { data: content });
+  });
 });
 
 module.exports = router;
