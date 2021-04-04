@@ -23,12 +23,16 @@
                   <a href="/auth/github" class="sign-btn"><span><i class="fab fa-github"></i></span> Sign In using GitHub</a>
 
                 <form action="/users/login" method="POST">
+                    <% if (error) { %>
+                     <p style="color:red"><%= error %> </p>
+                    <% } %>
                   <label for="email">Email</label>
                   <input type="email" name="email" id="email"  placeholder = "exaple@gmail.com"  class="form-control" required >
                   <label for="password">password</label>
                   <input type="password" name="password" id="password" placeholder="set your password" class="form-control" required>
-                  <div>
-                      <a href="/"></a>
+                  <div class="flex justify-between-flex aign-center forget">
+                      <a href="/verifyEmail/reset">reset password</a>
+                      <a href="/verifyEmail/forgot">forgot password</a>
                   </div>
                   <button type="submit" class="form-control">submit</button>
                 </form>

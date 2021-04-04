@@ -429,4 +429,20 @@ label {
   border: none;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+.signup .forget {
+  margin-bottom: 1rem;
+}
+
+.signup .forget a {
+  color: royalblue;
+}
+
+.forgot-sec .container {
+  height: 90vh;
+}
+
+.forgot-sec form {
+  margin-top: 1rem;
+}
 /*# sourceMappingURL=style.css.map */
