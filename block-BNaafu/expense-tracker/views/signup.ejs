@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body>
+    <%- include("partials/header")%>
+
+    <main>
+        <section class="padding signup-sec">
+            <div class="container flex justify-between-flex align-center">
+              <div class="font-0 flex-50">
+                <img src="https://cdn.jotfor.ms/php-form-generator/assets/img/introduction.svg?v=1.0.0.0" alt="" class="img" />
+              </div>
+              <div class="flex-40 signup">
+                  <h3 class="ternary-heading">Sign Up</h3>
+                  <p class="text">already have an account? <a href="/users/login">Login</a></p>
+                  <a href="/auth/google" class="sign-btn"> <span><i class="fab fa-google"></i></span> Sign up using Google</a>
+                  <a href="/auth/github" class="sign-btn"><span><i class="fab fa-github"></i></span> Sign up using GitHub</a>
+
+                <form action="/users/signup" method="POST">
+                  <label for="name">Name</label>
+                  <input type="text" name="name" id="name" placeholder="enter your name" required class="form-control">
+                  <label for="email">Email</label>
+                  <input type="email" name="email" id="email" value="<%= data.email %> " class="form-control diseable" required >
+                  <label for="password">password</label>
+                  <input type="password" name="password" id="password" placeholder="set your password" class="form-control" required>
+                  <label for="age">age</label>
+                  <input type="number" name="age" placeholder="enter your age" id="age" class="form-control" required>
+                  <label for="phone">mobail number</label>
+                  <input type="number" name="phone" placeholder="enter your mobail number" class="form-control" required>
+                  <label for="country">country</label>
+                  <input type="text" name="country" placeholder="countory name" class="form-control" required>
+                  <button type="submit" class="form-control">submit</button>
+                </form>
+              </div>
+            </div>
+        </section>
+    </main>
+  </body>
+</html>
