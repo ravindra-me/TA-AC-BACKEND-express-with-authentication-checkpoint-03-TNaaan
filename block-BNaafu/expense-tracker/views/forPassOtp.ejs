@@ -10,8 +10,15 @@
   <body>
     <%- include("partials/header")%>
     <main>
-      <section class="forgot-sec">
-        <div class="container flex justify-center-flex align-center">
+      <section>
+        <div class="container flex justify-between-flex align-center">
+          <div class="font-0 flex-50">
+            <img
+              src="https://image.freepik.com/free-vector/man-checking-emails-smartphone-cartoon-people-illustration_241107-222.jpg"
+              alt=""
+              class="img"
+            />
+          </div>
           <div class="flex-30">
             <a href="/"></a>
             <a href="/"></a>
@@ -21,7 +28,7 @@
                 will vaild only for one minute
               </h3>
               <form
-                action="/verifyEmail/<%= id %>/verifyOtp"
+                action="/verifyEmail/<%= id %>/verifyOtp/forgot"
                 method="POST"
               >
                 <% if (error) { %>

@@ -8,12 +8,13 @@ router.get('/google',
       [ 'email', 'profile' ] }
 ));
 
-router.get("/callback",
+router.get("/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/users/login",
   }),
   function (req, res) {
-    res.redirect("/article");
+    console.log('hello')
+    res.redirect("/");
   }
 );
 
@@ -25,7 +26,7 @@ router.get(
     failureRedirect: "/users/login",
   }),
   function (req, res) {
-    res.redirect("/article");
+    res.redirect("/");
   }
 );
 
